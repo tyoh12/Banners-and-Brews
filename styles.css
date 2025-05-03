@@ -555,3 +555,311 @@ footer p:first-child {
         padding: 2rem;
     }
 }
+
+/* === NEW STYLES FOR WALL OF HONOR PAGE === */
+
+/* Honor Hero modifications */
+.honor-hero {
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23d4af37' stroke='none' d='M50 0 L100 50 L50 100 L0 50 Z' opacity='0.05'/%3E%3C/svg%3E"),
+        radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 0%, transparent 70%),
+        radial-gradient(circle at 75% 75%, rgba(139, 111, 71, 0.1) 0%, transparent 70%);
+}
+
+/* Year Navigation Styles */
+.year-navigation {
+    background-color: #0d0d0d;
+    padding: 2rem 0;
+    border-bottom: 2px solid #8b6f47;
+    text-align: center;
+}
+
+.year-selector {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.year-btn {
+    background-color: #222;
+    color: #c7a572;
+    border: 2px solid #8b6f47;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.year-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: all 0.5s ease;
+}
+
+.year-btn:hover::before {
+    left: 100%;
+}
+
+.year-btn:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.year-btn.active {
+    background-color: #8b6f47;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.year-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #333;
+}
+
+.year-btn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Tournament Results Styles */
+.tournament-results {
+    padding: 4rem 0;
+    background-color: #111;
+    min-height: 600px;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Rankings Table */
+.rankings-section {
+    margin: 4rem 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid #333;
+}
+
+.rankings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background-color: rgba(20, 20, 20, 0.7);
+}
+
+.rankings-table th,
+.rankings-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.rankings-table th {
+    background-color: #0d0d0d;
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.rankings-table tr:hover {
+    background-color: rgba(139, 111, 71, 0.1);
+}
+
+.gold-rank {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.silver-rank {
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+.bronze-rank {
+    background-color: rgba(205, 127, 50, 0.1);
+}
+
+.highlight-row {
+    background-color: rgba(139, 111, 71, 0.2) !important;
+}
+
+/* Game Results Styles */
+.game-results {
+    margin: 4rem 0;
+}
+
+.accordion {
+    margin-top: 1.5rem;
+}
+
+.accordion-item {
+    margin-bottom: 1rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    background-color: #2d2d2d;
+    color: #d4af37;
+    padding: 1rem;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.accordion-header::after {
+    content: "⮟";
+    position: absolute;
+    right: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.accordion-header.active {
+    background-color: #8b6f47;
+    color: #1a1a1a;
+}
+
+.accordion-header.active::after {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.game-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background-color: rgba(20, 20, 20, 0.5);
+}
+
+.game-table th,
+.game-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.game-table th {
+    background-color: #0d0d0d;
+    color: #c7a572;
+    font-family: 'Cinzel', serif;
+}
+
+/* Special Mentions */
+.special-mentions {
+    margin: 4rem 0;
+    background-color: rgba(66, 33, 0, 0.2);
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid #8b6f47;
+}
+
+.mentions-list {
+    list-style-type: none;
+    margin-left: 0;
+    margin-top: 1.5rem;
+}
+
+.mentions-list li {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #d4af37;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.mentions-list li:hover {
+    background-color: rgba(139, 111, 71, 0.2);
+    transform: translateX(5px);
+}
+
+.mention-title {
+    color: #d4af37;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Placeholder for future tournaments */
+.placeholder-message {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 2px dashed #8b6f47;
+    margin: 2rem 0;
+}
+
+.scroll-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.placeholder-message h3 {
+    color: #d4af37;
+    margin-bottom: 1rem;
+}
+
+.placeholder-message p {
+    color: #c7a572;
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Responsive adjustments for Wall of Honor */
+@media (max-width: 768px) {
+    .year-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .rankings-table th,
+    .rankings-table td,
+    .game-table th,
+    .game-table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .special-mentions {
+        padding: 1rem;
+    }
+}
