@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Apply the saved theme
         document.documentElement.setAttribute('data-theme', savedTheme);
         
+        // Update icon visibility based on current theme
+        updateThemeIcons(savedTheme);
+        
         // Add toggle event listener
         themeToggle.addEventListener('click', function() {
             // Toggle between dark and light
@@ -18,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update theme
             document.documentElement.setAttribute('data-theme', newTheme);
+            
+            // Update icon visibility
+            updateThemeIcons(newTheme);
             
             // Save preference
             localStorage.setItem('theme', newTheme);
@@ -30,15 +36,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Function to correctly update icon visibility based on theme
+    function updateThemeIcons(theme) {
+        const darkIcon = document.querySelector('.dark-icon');
+        const lightIcon = document.querySelector('.light-icon');
+        
+        if (theme === 'dark') {
+            // In dark mode, show the sun (to switch to light)
+            if (darkIcon) darkIcon.style.cssText = 'opacity: 1; transform: translateY(0);';
+            if (lightIcon) lightIcon.style.cssText = 'opacity: 0; transform: translateY(10px);';
+        } else {
+            // In light mode, show the moon (to switch to dark)
+            if (darkIcon) darkIcon.style.cssText = 'opacity: 0; transform: translateY(10px);';
+            if (lightIcon) lightIcon.style.cssText = 'opacity: 1; transform: translateY(0);';
+        }
+    }
+    
     // Add animation to theme icon
-    const themeIcon = document.querySelector('.theme-icon');
-    if (themeIcon) {
-        themeIcon.addEventListener('mouseenter', function() {
-            this.style.transform = 'rotate(45deg)';
+    const themeIcons = document.querySelectorAll('.theme-icon');
+    themeIcons.forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            this.style.transform = this.style.transform.includes('translateY') 
+                ? this.style.transform.replace('translateY', 'translateY(0) rotate(45deg)')
+                : 'rotate(45deg)';
         });
         
-        themeIcon.addEventListener('mouseleave', function() {
-            this.style.transform = 'rotate(0deg)';
+        icon.addEventListener('mouseleave', function() {
+            this.style.transform = this.style.transform.includes('rotate') 
+                ? this.style.transform.replace('rotate(45deg)', '')
+                : this.style.transform;
         });
-    }
+    });
 });

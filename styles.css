@@ -157,21 +157,38 @@ li {
     box-shadow: 0 0 10px var(--text-heading);
 }
 
+/* Updated theme icon styles */
 .theme-icon {
     position: absolute;
     transition: all 0.3s ease;
 }
 
-[data-theme="dark"] .light-icon,
-.dark-icon {
+/* By default both icons are invisible */
+.dark-icon, .light-icon {
     opacity: 0;
     transform: translateY(10px);
 }
 
-[data-theme="dark"] .dark-icon,
-.light-icon {
-    opacity: 1;
-    transform: translateY(0);
+/* The JavaScript in theme.js will handle the visibility
+   But we'll also add these rules for initial page load */
+[data-theme="dark"] .dark-icon {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+[data-theme="dark"] .light-icon {
+    opacity: 0 !important;
+    transform: translateY(10px) !important;
+}
+
+[data-theme="light"] .dark-icon {
+    opacity: 0 !important;
+    transform: translateY(10px) !important;
+}
+
+[data-theme="light"] .light-icon {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 /* Navigation Bar */
@@ -865,108 +882,4 @@ footer p:first-child {
 }
 
 .scroll-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.placeholder-message h3 {
-    color: var(--text-heading);
-    margin-bottom: 1rem;
-}
-
-.placeholder-message p {
-    color: var(--text-primary);
-    font-style: italic;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    .navbar .container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    h1 {
-        font-size: 2.5rem;
-    }
-    
-    h2 {
-        font-size: 2rem;
-    }
-    
-    h3 {
-        font-size: 1.5rem;
-    }
-    
-    .hero {
-        padding: 4rem 0;
-    }
-    
-    section {
-        padding: 3rem 0;
-    }
-    
-    .house-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-    
-    .honor-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .crest-frame {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .house-selection h1 {
-        font-size: 2.2rem;
-    }
-    
-    .house-crest {
-        font-size: 4rem;
-    }
-    
-    #houseName {
-        font-size: 2rem;
-    }
-    
-    .selection-box {
-        padding: 2rem;
-    }
-    
-    .theme-toggle-container {
-        margin: 0.5rem 0;
-    }
-    
-    .year-btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-    }
-    
-    .rankings-table th,
-    .rankings-table td,
-    .game-table th,
-    .game-table td {
-        padding: 0.5rem;
-        font-size: 0.9rem;
-    }
-    
-    .special-mentions {
-        padding: 1rem;
-    }
-}
+    font-size
