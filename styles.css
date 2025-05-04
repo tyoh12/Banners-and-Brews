@@ -10,80 +10,71 @@
     box-sizing: border-box;
 }
 
-/* Desktop-specific overrides to ensure normal appearance on larger screens */
-@media screen and (min-width: 769px) {
-    /* Reset any mobile-specific changes for desktop */
+//* Add this to your styles.css file */
+
+/* Default state - hamburger hidden on desktop */
+.hamburger-menu {
+    display: none;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    /* Show hamburger menu on mobile */
     .hamburger-menu {
-        display: none !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1000;
     }
     
+    /* Mobile menu styling */
     .nav-menu {
-        position: static !important;
-        display: flex !important;
-        flex-direction: row !important;
-        width: auto !important;
-        height: auto !important;
-        background: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-        right: 0 !important;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 80px 20px 30px;
+        transition: all 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        z-index: 99;
+    }
+    
+    .nav-menu.active {
+        right: 0;
     }
     
     .nav-menu li {
-        width: auto;
-        margin: 0;
+        width: 100%;
+        margin: 10px 0;
     }
     
     .nav-menu a {
-        width: auto;
-        text-align: left;
+        width: 100%;
+        text-align: center;
+        padding: 12px;
     }
     
-    .theme-toggle-container {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-left: 1rem;
+    /* Active state for hamburger */
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
     }
     
-    /* Theme icon positioning */
-    .theme-icon {
-        transition: all 0.3s ease;
-    }
-    
-    [data-theme="dark"] .dark-icon,
-    [data-theme="light"] .light-icon {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    [data-theme="dark"] .light-icon,
-    [data-theme="light"] .dark-icon {
+    .hamburger-menu.active span:nth-child(2) {
         opacity: 0;
-        transform: translateY(10px);
-    }
-}
-
-/* Animations and transitions */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.champion .crest {
-    animation: pulse 3s infinite ease-in-out;
-}
-
-/* Accessible touch targets for mobile */
-@media (hover: none) and (pointer: coarse) {
-    button, .year-btn, .accordion-header, .nav-menu a {
-        min-height: 44px;
-        min-width: 44px;
     }
     
-    .nav-menu a {
-        padding: 12px 15px;
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
     }
 }
 
