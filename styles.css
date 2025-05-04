@@ -1,4 +1,9 @@
-/* Reset and base styles */
+/* 
+ * Banners and Brews 2025 - Main Stylesheet
+ * A responsive medieval-themed tournament website with light/dark mode
+ */
+
+/* ========== RESET AND BASE STYLES ========== */
 * {
     margin: 0;
     padding: 0;
@@ -30,8 +35,8 @@
     --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23333' stroke-width='1' d='M0 50h100M50 0v100'/%3E%3C/svg%3E");
 }
 
+/* Light theme variables */
 [data-theme="light"] {
-    /* Light theme variables */
     --bg-primary: #f5f0e6;
     --bg-secondary: #ffffff;
     --bg-tertiary: #eee6d8;
@@ -54,11 +59,12 @@
     --grid-lines: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='%23d8c9a7' stroke-width='1' d='M0 50h100M50 0v100'/%3E%3C/svg%3E");
 }
 
-/* Theme transition effect */
+/* ========== THEME TRANSITIONS ========== */
 .theme-transition {
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
+/* ========== GLOBAL STYLES ========== */
 body {
     font-family: 'Cinzel', serif;
     line-height: 1.6;
@@ -74,6 +80,7 @@ body {
     padding: 0 20px;
 }
 
+/* ========== TYPOGRAPHY ========== */
 h1, h2, h3 {
     margin-bottom: 1rem;
     font-family: 'Cinzel Decorative', cursive;
@@ -127,7 +134,7 @@ li {
     margin-bottom: 0.5rem;
 }
 
-/* Theme toggle styles */
+/* ========== THEME TOGGLE ========== */
 .theme-toggle-container {
     display: flex;
     align-items: center;
@@ -157,41 +164,39 @@ li {
     box-shadow: 0 0 10px var(--text-heading);
 }
 
-/* Updated theme icon styles */
 .theme-icon {
     position: absolute;
     transition: all 0.3s ease;
 }
 
-/* By default both icons are invisible */
+/* Default state for theme icons */
 .dark-icon, .light-icon {
     opacity: 0;
     transform: translateY(10px);
 }
 
-/* The JavaScript in theme.js will handle the visibility
-   But we'll also add these rules for initial page load */
+/* Theme icon states based on selected theme */
 [data-theme="dark"] .dark-icon {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 [data-theme="dark"] .light-icon {
-    opacity: 0 !important;
-    transform: translateY(10px) !important;
+    opacity: 0;
+    transform: translateY(10px);
 }
 
 [data-theme="light"] .dark-icon {
-    opacity: 0 !important;
-    transform: translateY(10px) !important;
+    opacity: 0;
+    transform: translateY(10px);
 }
 
 [data-theme="light"] .light-icon {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Navigation Bar */
+/* ========== NAVIGATION ========== */
 .navbar {
     background-color: var(--bg-secondary);
     padding: 1rem 0;
@@ -244,7 +249,48 @@ li {
     color: var(--bg-secondary);
 }
 
-/* Hero section */
+/* ========== MOBILE MENU STYLES ========== */
+/* Hamburger button */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    border-radius: 3px;
+    background-color: var(--text-heading);
+    transition: all 0.3s ease;
+}
+
+/* Menu overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ========== HERO SECTION ========== */
 .hero {
     background-color: var(--bg-secondary);
     background-image: 
@@ -301,90 +347,7 @@ li {
     color: var(--text-primary);
 }
 
-/* House Selection Page */
-.house-selection {
-    padding: 6rem 0;
-    text-align: center;
-    background-color: var(--bg-tertiary);
-}
-
-.house-selection h1 {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-heading);
-}
-
-.selection-intro {
-    font-size: 1.3rem;
-    margin-bottom: 3rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    color: var(--text-primary);
-}
-
-.selection-box {
-    background-color: var(--bg-accent);
-    border: 3px solid var(--border-primary);
-    border-radius: 10px;
-    padding: 3rem;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-.selected-house-display {
-    margin-bottom: 2rem;
-}
-
-.house-crest {
-    font-size: 5rem;
-    margin-bottom: 1rem;
-    text-shadow: 3px 3px 6px var(--shadow-color);
-}
-
-#houseName {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-heading);
-}
-
-#houseDescription {
-    font-size: 1.2rem;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-}
-
-.draw-button {
-    background-color: var(--border-primary);
-    color: var(--bg-secondary);
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    font-family: 'Cinzel', serif;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.draw-button:hover {
-    background-color: var(--text-heading);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px var(--shadow-color);
-}
-
-.draw-button:active {
-    transform: translateY(0);
-}
-
-.draw-button:disabled {
-    background-color: var(--bg-card);
-    color: var(--text-secondary);
-    cursor: not-allowed;
-}
-
-/* Sections */
+/* ========== SECTION STYLES ========== */
 section {
     padding: 4rem 0;
     border-bottom: 1px solid var(--border-secondary);
@@ -394,7 +357,7 @@ section:nth-child(even) {
     background-color: var(--bg-accent);
 }
 
-/* Overview */
+/* Overview Section */
 .overview {
     text-align: center;
 }
@@ -405,7 +368,7 @@ section:nth-child(even) {
     font-size: 1.1rem;
 }
 
-/* Houses */
+/* Houses Section */
 .houses {
     background-color: var(--bg-card);
 }
@@ -455,7 +418,7 @@ section:nth-child(even) {
     color: var(--text-secondary);
 }
 
-/* Hall of Honor */
+/* ========== HALL OF HONOR STYLES ========== */
 .hall-of-honor {
     background-color: var(--bg-tertiary);
     padding: 5rem 0;
@@ -542,7 +505,7 @@ section:nth-child(even) {
     font-style: italic;
 }
 
-/* Scoring */
+/* ========== SCORING SECTION ========== */
 .scoring {
     background-color: var(--bg-primary);
 }
@@ -562,7 +525,7 @@ section:nth-child(even) {
     border-left: 4px solid var(--border-primary);
 }
 
-/* Games */
+/* ========== GAMES SECTION ========== */
 .game-category {
     margin-bottom: 2rem;
     background-color: var(--bg-accent);
@@ -585,7 +548,7 @@ section:nth-child(even) {
     color: var(--text-primary);
 }
 
-/* Logistics */
+/* ========== LOGISTICS SECTION ========== */
 .logistics {
     background-color: var(--bg-secondary);
 }
@@ -595,7 +558,7 @@ section:nth-child(even) {
     margin: 0 auto;
 }
 
-/* Footer */
+/* ========== FOOTER ========== */
 footer {
     background-color: var(--bg-secondary);
     color: var(--text-secondary);
@@ -611,7 +574,90 @@ footer p:first-child {
     font-family: 'Cinzel Decorative', cursive;
 }
 
-/* Wall of Honor specific styles */
+/* ========== HOUSE SELECTION PAGE ========== */
+.house-selection {
+    padding: 6rem 0;
+    text-align: center;
+    background-color: var(--bg-tertiary);
+}
+
+.house-selection h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-heading);
+}
+
+.selection-intro {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--text-primary);
+}
+
+.selection-box {
+    background-color: var(--bg-accent);
+    border: 3px solid var(--border-primary);
+    border-radius: 10px;
+    padding: 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.selected-house-display {
+    margin-bottom: 2rem;
+}
+
+.house-crest {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 6px var(--shadow-color);
+}
+
+#houseName {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-heading);
+}
+
+#houseDescription {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.draw-button {
+    background-color: var(--border-primary);
+    color: var(--bg-secondary);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.draw-button:hover {
+    background-color: var(--text-heading);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.draw-button:active {
+    transform: translateY(0);
+}
+
+.draw-button:disabled {
+    background-color: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+/* ========== WALL OF HONOR SPECIFIC STYLES ========== */
 .honor-hero {
     background-image: 
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23d4af37' stroke='none' d='M50 0 L100 50 L50 100 L0 50 Z' opacity='0.05'/%3E%3C/svg%3E"),
@@ -692,7 +738,7 @@ footer p:first-child {
     box-shadow: none;
 }
 
-/* Tournament Results Styles */
+/* ========== TOURNAMENT RESULTS STYLES ========== */
 .tournament-results {
     padding: 4rem 0;
     background-color: var(--bg-tertiary);
@@ -882,57 +928,68 @@ footer p:first-child {
 }
 
 .scroll-icon {
-    font-size
-
-/* Append the mobile styles to the end of the existing styles.css file */
-
-/* Mobile Menu Styles */
-.hamburger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    position: relative;
-    z-index: 20;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-heading);
 }
 
-.hamburger-menu span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    border-radius: 3px;
-    background-color: var(--text-heading);
-    transition: all 0.3s ease;
-}
-
-/* Mobile-specific styles */
+/* ========== RESPONSIVE STYLES ========== */
+/* Mobile Styles */
 @media screen and (max-width: 768px) {
-    /* Show hamburger, hide regular nav */
+    /* Essential mobile navigation fixes */
     .hamburger-menu {
-        display: flex;
+        display: flex !important;
+        z-index: 1000;
     }
     
     .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background-color: var(--bg-secondary);
-        flex-direction: column;
-        padding: 80px 20px 20px;
-        transition: right 0.3s ease;
-        z-index: 10;
-        box-shadow: -5px 0 15px var(--shadow-color);
-        margin: 0;
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 70% !important;
+        height: 100vh !important;
+        background-color: var(--bg-secondary) !important;
+        flex-direction: column !important;
+        padding: 80px 20px 20px !important;
+        transition: right 0.3s ease !important;
+        z-index: 10 !important;
+        box-shadow: -5px 0 15px var(--shadow-color) !important;
+        margin: 0 !important;
     }
     
     .nav-menu.active {
-        right: 0;
+        right: 0 !important;
     }
     
+    /* When menu is open, transform hamburger to X */
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg) !important;
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0 !important;
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg) !important;
+    }
+    
+    /* Overlay when menu is open */
+    .menu-overlay.active {
+        display: block !important;
+        opacity: 1 !important;
+    }
+    
+    /* Theme toggle positioning on mobile */
+    .theme-toggle-container {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+        z-index: 15;
+        margin: 0;
+    }
+    
+    /* Adjusted nav menu items */
     .nav-menu li {
         margin: 15px 0;
         width: 100%;
@@ -945,98 +1002,9 @@ footer p:first-child {
         padding: 12px 0;
     }
     
-    /* When menu is open, transform hamburger to X */
-    .hamburger-menu.active span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-    }
-    
-    .hamburger-menu.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .hamburger-menu.active span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
-    }
-    
-    /* Overlay when menu is open */
-    .menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 5;
-        display: none;
-    }
-    
-    .menu-overlay.active {
-        display: block;
-    }
-    
-    /* Adjust navbar for mobile */
-    .navbar .container {
-        justify-content: space-between;
-        padding: 15px 20px;
-    }
-    
-    /* Other mobile adjustments */
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero h2 {
-        font-size: 1.5rem;
-    }
-    
-    section {
-        padding: 2rem 0;
-    }
-    
-    .house-grid {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 0.5rem;
-    }
-    
-    .honor-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    
-    .champion {
-        padding: 1.5rem;
-    }
-    
-    /* Adjust tables for mobile */
-    .game-table, .rankings-table {
-        font-size: 0.8rem;
-    }
-    
-    .game-table th, .game-table td,
-    .rankings-table th, .rankings-table td {
-        padding: 0.5rem 0.3rem;
-    }
-    
-    /* Navigation positioning fix */
-    .nav-brand {
-        z-index: 15;
-    }
-    
-    .theme-toggle-container {
-        position: absolute;
-        top: 15px;
-        right: 60px;
-        z-index: 15;
-    }
-    
-    /* Additional mobile optimizations */
-    .container {
-        padding: 0 15px;
-    }
-    
+    /* Typography adjustments for mobile */
     h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
     
     h2 {
@@ -1051,26 +1019,70 @@ footer p:first-child {
         font-size: 0.95rem;
     }
     
+    /* Hero adjustments */
     .hero {
         padding: 3rem 0;
     }
     
-    /* Responsive tables */
-    .rankings-table, .game-table {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero .motto {
+        font-size: 1rem;
+    }
+    
+    /* Section adjustments */
+    section {
+        padding: 2.5rem 0;
+    }
+    
+    /* Container adjustment */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* House grid adjustments */
+    .house-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    /* Honor grid adjustments */
+    .honor-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    /* Champion cards */
+    .champion {
+        padding: 1.5rem;
+    }
+    
+    .crest-frame {
+        width: 120px;
+        height: 120px;
+    }
+    
+    /* Table adjustments */
+    .game-table, .rankings-table {
+        display: block;
         width: 100%;
         overflow-x: auto;
-        display: block;
     }
     
-    /* Improve touch targets */
-    button, 
-    .house-card, 
-    .year-btn,
-    .accordion-header {
-        min-height: 44px; /* Minimum touch target size */
+    .game-table th, .game-table td,
+    .rankings-table th, .rankings-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.9rem;
     }
     
-    /* Adjust year buttons */
+    /* Year selector adjustments */
     .year-selector {
         flex-direction: column;
         gap: 0.5rem;
@@ -1081,7 +1093,7 @@ footer p:first-child {
         width: 80%;
     }
     
-    /* Adjust selection box */
+    /* House selection boxes */
     .selection-box {
         padding: 1.5rem;
     }
@@ -1093,16 +1105,9 @@ footer p:first-child {
     #houseName {
         font-size: 2rem;
     }
-    
-    /* Make sure tables don't break layout */
-    .game-table, .rankings-table {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
 }
 
-/* Small phone optimization */
+/* Extra small screens */
 @media screen and (max-width: 480px) {
     .hero h1 {
         font-size: 1.8rem;
@@ -1110,10 +1115,6 @@ footer p:first-child {
     
     .hero h2 {
         font-size: 1.3rem;
-    }
-    
-    .hero .motto {
-        font-size: 1rem;
     }
     
     .nav-brand {
@@ -1131,8 +1132,9 @@ footer p:first-child {
     }
     
     .crest-frame {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
+        border-width: 3px;
     }
     
     .champion h3 {
@@ -1142,48 +1144,45 @@ footer p:first-child {
     .champion h4 {
         font-size: 1.2rem;
     }
+    
+    .accordion-header {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+    
+    .draw-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
 }
-/* Theme toggle fix - only affects mobile views */
 
-/* Only apply these changes on mobile screens */
-@media screen and (max-width: 768px) {
-    /* Theme toggle positioning in mobile view */
-    .theme-toggle-container {
-        position: absolute;
-        top: 15px;
-        right: 60px;
-        z-index: 15;
+/* Desktop-specific overrides to ensure normal appearance on larger screens */
+@media screen and (min-width: 769px) {
+    /* Reset any mobile-specific changes for desktop */
+    .hamburger-menu {
+        display: none !important;
+    }
+    
+    .nav-menu {
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        width: auto !important;
+        height: auto !important;
+        background: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        right: 0 !important;
+    }
+    
+    .nav-menu li {
+        width: auto;
         margin: 0;
     }
     
-    /* Wall of honor specific fixes for mobile */
-    .wall-of-honor .theme-toggle-container {
-        position: absolute;
-        z-index: 30;
-    }
-    
-    /* Fix for icon positions in mobile view */
-    .theme-icon {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) !important;
-        transition: opacity 0.3s ease !important;
-    }
-    
-    /* Ensure visibility of theme toggle in mobile menu */
-    .nav-menu .theme-toggle-container {
-        display: block !important;
-        visibility: visible !important;
-    }
-}
-
-/* Desktop-specific overrides to ensure normal appearance */
-@media screen and (min-width: 769px) {
-    /* Reset any mobile-specific changes for desktop */
-    .wall-of-honor .theme-toggle-container {
-        position: relative;
-        z-index: auto;
+    .nav-menu a {
+        width: auto;
+        text-align: left;
     }
     
     .theme-toggle-container {
@@ -1193,11 +1192,11 @@ footer p:first-child {
         margin-left: 1rem;
     }
     
+    /* Theme icon positioning */
     .theme-icon {
         transition: all 0.3s ease;
     }
     
-    /* Original desktop position of theme icons */
     [data-theme="dark"] .dark-icon,
     [data-theme="light"] .light-icon {
         opacity: 1;
@@ -1208,5 +1207,65 @@ footer p:first-child {
     [data-theme="light"] .dark-icon {
         opacity: 0;
         transform: translateY(10px);
+    }
+}
+
+/* Animations and transitions */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.champion .crest {
+    animation: pulse 3s infinite ease-in-out;
+}
+
+/* Accessible touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    button, .house-card, .year-btn, .accordion-header, .nav-menu a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-menu a {
+        padding: 12px 15px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar, .hamburger-menu, .theme-toggle-container, .menu-overlay {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+        font-size: 12pt;
+    }
+    
+    h1, h2, h3 {
+        color: black;
+        text-shadow: none;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .champion, .house-card, .game-category {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+    
+    @page {
+        margin: 2cm;
     }
 }

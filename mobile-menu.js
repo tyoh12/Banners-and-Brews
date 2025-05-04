@@ -1,18 +1,12 @@
 // Mobile menu functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Don't initialize mobile menu functionality until theme.js has run
-    // This ensures theme toggle is fully initialized before we add mobile functionality
-    setTimeout(initializeMobileMenu, 100);
+    // Initialize mobile menu immediately
+    initializeMobileMenu();
     
     function initializeMobileMenu() {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const navMenu = document.querySelector('.nav-menu');
         const menuOverlay = document.querySelector('.menu-overlay');
-        const themeToggle = document.getElementById('themeToggle');
-        
-        // Save the original position of the theme toggle container
-        const themeToggleContainer = document.querySelector('.theme-toggle-container');
-        const originalParent = themeToggleContainer ? themeToggleContainer.parentNode : null;
         
         // Toggle mobile menu when hamburger is clicked
         if (hamburgerMenu) {
@@ -42,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close menu when a nav link is clicked
         const navLinks = document.querySelectorAll('.nav-menu a');
         navLinks.forEach(link => {
-            if (link.parentNode !== themeToggleContainer) { // Skip the theme toggle
+            if (!link.closest('.theme-toggle-container')) { // Skip the theme toggle
                 link.addEventListener('click', function() {
                     if (hamburgerMenu) hamburgerMenu.classList.remove('active');
                     if (navMenu) navMenu.classList.remove('active');
@@ -56,18 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Ensure theme toggle still works in mobile menu
+        // Prevent theme toggle from closing the menu
+        const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
-            // Make sure any existing click events still work by not overriding them
-            // Just ensure the menu stays open when theme is toggled
-            const originalClickEvent = themeToggle.onclick;
-            
             themeToggle.addEventListener('click', function(e) {
                 // Stop event from closing the menu
                 e.stopPropagation();
-                
-                // Menu should stay open when toggling the theme
-                // Don't do anything with the menu here
             });
         }
         
@@ -82,12 +70,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 document.body.style.overflow = '';
-                
-                // Ensure theme toggle is in the right place when switching back to desktop
-                if (originalParent && themeToggleContainer && window.innerWidth > 768) {
-                    originalParent.appendChild(themeToggleContainer);
-                }
             }
         });
+        
+        // Manually check for mobile view on load
+        if (window.innerWidth <= 768) {
+            // Make sure hamburger menu appears
+            if (hamburgerMenu) {
+                hamburgerMenu.style.display = 'flex';
+            }
+        }
     }
 });
