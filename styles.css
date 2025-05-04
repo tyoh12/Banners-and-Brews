@@ -950,7 +950,7 @@ footer p:first-child {
         height: 100vh !important;
         background-color: var(--bg-secondary) !important;
         flex-direction: column !important;
-        padding: 80px 20px 20px !important;
+        padding: 20px 20px 20px !important; /* Reduced from 80px at the top */
         transition: right 0.3s ease !important;
         z-index: 10 !important;
         box-shadow: -5px 0 15px var(--shadow-color) !important;
@@ -980,18 +980,18 @@ footer p:first-child {
         opacity: 1 !important;
     }
     
-    /* Theme toggle positioning on mobile */
+    /* Theme toggle positioning on mobile - moved to top of menu */
     .theme-toggle-container {
-        position: absolute;
-        top: 15px;
-        right: 60px;
-        z-index: 15;
-        margin: 0;
+        position: static;
+        margin: 0 0 20px 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
     
-    /* Adjusted nav menu items */
+    /* Adjusted nav menu items with reduced spacing */
     .nav-menu li {
-        margin: 15px 0;
+        margin: 5px 0; /* Reduced from 15px */
         width: 100%;
     }
     
@@ -999,7 +999,7 @@ footer p:first-child {
         width: 100%;
         display: block;
         text-align: center;
-        padding: 12px 0;
+        padding: 8px 0; /* Reduced from 12px */
     }
     
     /* Typography adjustments for mobile */

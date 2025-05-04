@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const hamburgerMenu = document.getElementById('hamburgerMenu');
         const navMenu = document.querySelector('.nav-menu');
         const menuOverlay = document.querySelector('.menu-overlay');
+        const themeToggleContainer = document.querySelector('.theme-toggle-container');
         
         // Toggle mobile menu when hamburger is clicked
         if (hamburgerMenu) {
@@ -16,6 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (menuOverlay) {
                     menuOverlay.classList.toggle('active');
+                }
+                
+                // Move theme toggle to the top of the menu when it opens on mobile
+                if (window.innerWidth <= 768) {
+                    if (navMenu.classList.contains('active') && themeToggleContainer) {
+                        // Move the toggle to the top of the menu
+                        navMenu.prepend(themeToggleContainer);
+                    }
                 }
                 
                 // Prevent scrolling when menu is open
@@ -70,6 +79,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 document.body.style.overflow = '';
+            }
+            
+            // Move theme toggle to original position when in desktop mode
+            if (window.innerWidth > 768) {
+                const liItem = themeToggleContainer.parentElement;
+                if (liItem.tagName !== 'LI') {
+                    // Find the last li in the menu
+                    const lastLi = navMenu.querySelector('li:last-child');
+                    if (lastLi && !lastLi.contains(themeToggleContainer)) {
+                        lastLi.appendChild(themeToggleContainer);
+                    }
+                }
             }
         });
         
