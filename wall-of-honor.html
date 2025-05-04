@@ -7,11 +7,22 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="wall-of-honor">
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay"></div>
+    
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">⚔️ Banners & Brews ⚔️</div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
             <ul class="nav-menu">
                 <li><a href="index.html">Tournament</a></li>
                 <li><a href="house-selection.html">House Selection</a></li>
@@ -141,7 +152,6 @@
                             <td>Baron Antlerton</td>
                             <td>9</td>
                         </tr>
-                        <!-- Add more rows as needed -->
                     </tbody>
                 </table>
             </div>
@@ -360,7 +370,9 @@
         </div>
     </footer>
 
+    <!-- Important: Script order matters - theme.js must come before mobile-menu.js -->
     <script src="wall-of-honor.js"></script>
     <script src="theme.js"></script>
+    <script src="mobile-menu.js"></script>
 </body>
 </html>

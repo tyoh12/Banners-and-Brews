@@ -8,23 +8,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Mobile Menu Overlay -->
+    <div class="menu-overlay"></div>
+    
     <!-- Navigation Bar -->
-<nav class="navbar">
-    <div class="container">
-        <div class="nav-brand">⚔️ Banners & Brews ⚔️</div>
-        <ul class="nav-menu">
-            <li><a href="index.html" class="active">Tournament</a></li>
-            <li><a href="house-selection.html">House Selection</a></li>
-            <li><a href="wall-of-honor.html">Wall of Honor</a></li>
-            <li class="theme-toggle-container">
-                <button id="themeToggle" aria-label="Toggle dark/light mode">
-                    <span class="theme-icon dark-icon">☀️</span>
-                    <span class="theme-icon light-icon">🌙</span>
-                </button>
-            </li>
-        </ul>
-    </div>
-</nav>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">⚔️ Banners & Brews ⚔️</div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Tournament</a></li>
+                <li><a href="house-selection.html">House Selection</a></li>
+                <li><a href="wall-of-honor.html">Wall of Honor</a></li>
+                <li class="theme-toggle-container">
+                    <button id="themeToggle" aria-label="Toggle dark/light mode">
+                        <span class="theme-icon dark-icon">☀️</span>
+                        <span class="theme-icon light-icon">🌙</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -80,6 +91,7 @@
             </div>
         </section>
 
+        <!-- Rest of the content remains the same... -->
         <!-- Hall of Honor -->
         <section class="hall-of-honor">
             <div class="container">
@@ -203,5 +215,6 @@
 
     <script src="script.js"></script>
     <script src="theme.js"></script>
+    <script src="mobile-menu.js"></script>
 </body>
 </html>

@@ -883,3 +883,330 @@ footer p:first-child {
 
 .scroll-icon {
     font-size
+
+/* Append the mobile styles to the end of the existing styles.css file */
+
+/* Mobile Menu Styles */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+}
+
+.hamburger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    border-radius: 3px;
+    background-color: var(--text-heading);
+    transition: all 0.3s ease;
+}
+
+/* Mobile-specific styles */
+@media screen and (max-width: 768px) {
+    /* Show hamburger, hide regular nav */
+    .hamburger-menu {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        transition: right 0.3s ease;
+        z-index: 10;
+        box-shadow: -5px 0 15px var(--shadow-color);
+        margin: 0;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu li {
+        margin: 15px 0;
+        width: 100%;
+    }
+    
+    .nav-menu a {
+        width: 100%;
+        display: block;
+        text-align: center;
+        padding: 12px 0;
+    }
+    
+    /* When menu is open, transform hamburger to X */
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    /* Overlay when menu is open */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 5;
+        display: none;
+    }
+    
+    .menu-overlay.active {
+        display: block;
+    }
+    
+    /* Adjust navbar for mobile */
+    .navbar .container {
+        justify-content: space-between;
+        padding: 15px 20px;
+    }
+    
+    /* Other mobile adjustments */
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    section {
+        padding: 2rem 0;
+    }
+    
+    .house-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    .honor-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .champion {
+        padding: 1.5rem;
+    }
+    
+    /* Adjust tables for mobile */
+    .game-table, .rankings-table {
+        font-size: 0.8rem;
+    }
+    
+    .game-table th, .game-table td,
+    .rankings-table th, .rankings-table td {
+        padding: 0.5rem 0.3rem;
+    }
+    
+    /* Navigation positioning fix */
+    .nav-brand {
+        z-index: 15;
+    }
+    
+    .theme-toggle-container {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+        z-index: 15;
+    }
+    
+    /* Additional mobile optimizations */
+    .container {
+        padding: 0 15px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    p, li {
+        font-size: 0.95rem;
+    }
+    
+    .hero {
+        padding: 3rem 0;
+    }
+    
+    /* Responsive tables */
+    .rankings-table, .game-table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+    
+    /* Improve touch targets */
+    button, 
+    .house-card, 
+    .year-btn,
+    .accordion-header {
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    /* Adjust year buttons */
+    .year-selector {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .year-btn {
+        width: 80%;
+    }
+    
+    /* Adjust selection box */
+    .selection-box {
+        padding: 1.5rem;
+    }
+    
+    .house-crest {
+        font-size: 4rem;
+    }
+    
+    #houseName {
+        font-size: 2rem;
+    }
+    
+    /* Make sure tables don't break layout */
+    .game-table, .rankings-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+}
+
+/* Small phone optimization */
+@media screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.3rem;
+    }
+    
+    .hero .motto {
+        font-size: 1rem;
+    }
+    
+    .nav-brand {
+        font-size: 1.2rem;
+    }
+    
+    .house-grid {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 0.3rem;
+    }
+    
+    .house-card {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .crest-frame {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .champion h3 {
+        font-size: 1.5rem;
+    }
+    
+    .champion h4 {
+        font-size: 1.2rem;
+    }
+}
+/* Theme toggle fix - only affects mobile views */
+
+/* Only apply these changes on mobile screens */
+@media screen and (max-width: 768px) {
+    /* Theme toggle positioning in mobile view */
+    .theme-toggle-container {
+        position: absolute;
+        top: 15px;
+        right: 60px;
+        z-index: 15;
+        margin: 0;
+    }
+    
+    /* Wall of honor specific fixes for mobile */
+    .wall-of-honor .theme-toggle-container {
+        position: absolute;
+        z-index: 30;
+    }
+    
+    /* Fix for icon positions in mobile view */
+    .theme-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+        transition: opacity 0.3s ease !important;
+    }
+    
+    /* Ensure visibility of theme toggle in mobile menu */
+    .nav-menu .theme-toggle-container {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+/* Desktop-specific overrides to ensure normal appearance */
+@media screen and (min-width: 769px) {
+    /* Reset any mobile-specific changes for desktop */
+    .wall-of-honor .theme-toggle-container {
+        position: relative;
+        z-index: auto;
+    }
+    
+    .theme-toggle-container {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-left: 1rem;
+    }
+    
+    .theme-icon {
+        transition: all 0.3s ease;
+    }
+    
+    /* Original desktop position of theme icons */
+    [data-theme="dark"] .dark-icon,
+    [data-theme="light"] .light-icon {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    [data-theme="dark"] .light-icon,
+    [data-theme="light"] .dark-icon {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
