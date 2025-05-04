@@ -1,7 +1,13 @@
+// Add debug logs to verify script loading
+console.log("🏠 House Selection script loaded!");
+
 // House Selection functionality
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("🏠 DOM Content Loaded event fired in house-selection.js");
+    
     // Make sure navigation is working properly
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    console.log("Current page:", currentPage);
     
     // Remove all active classes first
     document.querySelectorAll('.nav-menu a').forEach(link => {
@@ -10,18 +16,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set active class for house selection
     if (currentPage.includes('house-selection.html')) {
-        document.getElementById('navHouseSelection')?.classList.add('active');
+        const navElement = document.getElementById('navHouseSelection');
+        console.log("Navigation element found:", navElement ? true : false);
+        navElement?.classList.add('active');
     }
     
     // Ensure theme toggle is working
     const savedTheme = localStorage.getItem('theme') || 
         (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
     document.documentElement.setAttribute('data-theme', savedTheme);
+    console.log("Theme set to:", savedTheme);
     
     // Make sure the theme icons are properly set
     if (window.themeToggleInit && typeof window.themeToggleInit.updateThemeIcons === 'function') {
         window.themeToggleInit.updateThemeIcons(savedTheme);
+        console.log("Theme icons updated successfully");
+    } else {
+        console.log("Warning: themeToggleInit not available:", window.themeToggleInit);
     }
+    
     // House names array (same as in script.js)
     const houses = [
         "Rat", "Worm", "Toad", "Newt", "Beetle", "Weasel", "Slug", "Bat", 
@@ -92,9 +105,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const houseCrest = document.getElementById('houseCrest');
     const houseDescription = document.getElementById('houseDescription');
     
+    // Log elements to verify they're found
+    console.log("Draw button found:", drawButton ? true : false);
+    console.log("House name element found:", houseName ? true : false);
+    console.log("House crest element found:", houseCrest ? true : false);
+    console.log("House description element found:", houseDescription ? true : false);
+    
     // Add event listener to the draw button
     if (drawButton) {
+        console.log("Adding click event listener to draw button");
         drawButton.addEventListener('click', function() {
+            console.log("Draw button clicked!");
+            
             // Add button click animation
             this.classList.add('clicking');
             setTimeout(() => {
@@ -104,16 +126,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Start the selection animation
             selectHouse();
         });
+    } else {
+        console.error("Draw button not found in the DOM!");
     }
     
     // Function to select a random house with animation
     function selectHouse() {
+        console.log("selectHouse function called");
+        
         // Disable the button during animation
         drawButton.disabled = true;
         
         // Start with rapid shuffling animation
         let shuffleCount = 0;
         const maxShuffles = 20;
+        console.log("Starting shuffle animation with", maxShuffles, "iterations");
+        
         const shuffleInterval = setInterval(() => {
             // Pick a random house for the animation
             const randomIndex = Math.floor(Math.random() * houses.length);
@@ -128,10 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // End the shuffling animation
             if (shuffleCount >= maxShuffles) {
+                console.log("Shuffle animation complete");
                 clearInterval(shuffleInterval);
                 
                 // Select the final house
                 const finalHouse = drawRandomHouse();
+                console.log("Selected final house:", finalHouse);
                 
                 // Add dramatic pause before revealing final result
                 setTimeout(() => {
@@ -150,6 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to reveal the final selected house
     function revealFinalHouse(house) {
+        console.log("Revealing final house:", house);
+        
         // Add dramatic reveal animation
         houseName.style.transform = "scale(0.8)";
         houseCrest.style.transform = "scale(0.8)";
@@ -164,6 +196,8 @@ document.addEventListener('DOMContentLoaded', function() {
             houseCrest.textContent = houseCrests[house] || "🏰";
             houseDescription.textContent = houseDescriptions[house] || 
                 "A noble house with a storied history and unique strengths.";
+            
+            console.log("Updated DOM with house information");
             
             // Add reveal animation
             houseName.style.transform = "scale(1.2)";
@@ -182,6 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Re-enable the button
                 drawButton.disabled = false;
                 drawButton.textContent = "Draw Again!";
+                console.log("Draw button re-enabled");
             }, 300);
         }, 200);
     }
@@ -234,5 +269,36 @@ document.addEventListener('DOMContentLoaded', function() {
             width: 80%;
         }
     `;
+    
     document.head.appendChild(style);
+    console.log("Added custom styles to head");
+    
+    // Add fallback if house-selection.html doesn't contain the expected elements
+    if (!drawButton || !houseName || !houseCrest || !houseDescription) {
+        console.error("Critical elements missing from house-selection.html!");
+        
+        // Try to add a warning to the page
+        const container = document.querySelector('.container');
+        if (container) {
+            const warning = document.createElement('div');
+            warning.style.cssText = "background-color: #f44336; color: white; padding: 15px; margin: 20px 0; border-radius: 5px;";
+            warning.innerHTML = "<strong>Warning:</strong> House selection functionality could not initialize properly. Please check the console for more information.";
+            container.prepend(warning);
+            console.log("Added warning message to the page");
+        }
+    }
+});
+
+// Add fallback to handle errors
+window.addEventListener('error', function(event) {
+    console.error("Caught error:", event.message);
+    
+    // Try to add a warning to the page
+    const container = document.querySelector('.container');
+    if (container) {
+        const warning = document.createElement('div');
+        warning.style.cssText = "background-color: #f44336; color: white; padding: 15px; margin: 20px 0; border-radius: 5px;";
+        warning.innerHTML = "<strong>Error:</strong> " + event.message;
+        container.prepend(warning);
+    }
 });
