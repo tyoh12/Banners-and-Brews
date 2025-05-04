@@ -10,6 +10,120 @@
     box-sizing: border-box;
 }
 
+/* Desktop-specific overrides to ensure normal appearance on larger screens */
+@media screen and (min-width: 769px) {
+    /* Reset any mobile-specific changes for desktop */
+    .hamburger-menu {
+        display: none !important;
+    }
+    
+    .nav-menu {
+        position: static !important;
+        display: flex !important;
+        flex-direction: row !important;
+        width: auto !important;
+        height: auto !important;
+        background: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        right: 0 !important;
+    }
+    
+    .nav-menu li {
+        width: auto;
+        margin: 0;
+    }
+    
+    .nav-menu a {
+        width: auto;
+        text-align: left;
+    }
+    
+    .theme-toggle-container {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-left: 1rem;
+    }
+    
+    /* Theme icon positioning */
+    .theme-icon {
+        transition: all 0.3s ease;
+    }
+    
+    [data-theme="dark"] .dark-icon,
+    [data-theme="light"] .light-icon {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    [data-theme="dark"] .light-icon,
+    [data-theme="light"] .dark-icon {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+/* Animations and transitions */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.champion .crest {
+    animation: pulse 3s infinite ease-in-out;
+}
+
+/* Accessible touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    button, .year-btn, .accordion-header, .nav-menu a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-menu a {
+        padding: 12px 15px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar, .hamburger-menu, .theme-toggle-container, .menu-overlay {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+        font-size: 12pt;
+    }
+    
+    h1, h2, h3 {
+        color: black;
+        text-shadow: none;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .champion, .game-category {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+    
+    @page {
+        margin: 2cm;
+    }
+}
+
 /* ========== THEME VARIABLES ========== */
 :root {
     /* Dark theme variables (default) */
@@ -371,44 +485,6 @@ section:nth-child(even) {
 /* Houses Section */
 .houses {
     background-color: var(--bg-card);
-}
-
-.house-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-.house-card {
-    background-color: var(--border-primary);
-    color: var(--bg-secondary);
-    padding: 1rem;
-    text-align: center;
-    border-radius: 4px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.house-card:hover {
-    background-color: var(--text-heading);
-    border-color: var(--text-subheading);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px var(--shadow-color);
-}
-
-.house-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
-    pointer-events: none;
 }
 
 .note {
@@ -933,339 +1009,109 @@ footer p:first-child {
     color: var(--text-heading);
 }
 
-/* ========== RESPONSIVE STYLES ========== */
-/* Mobile Styles */
-@media screen and (max-width: 768px) {
-    /* Essential mobile navigation fixes */
-    .hamburger-menu {
-        display: flex !important;
-        z-index: 1000;
-    }
-    
-    .nav-menu {
-        position: fixed !important;
-        top: 0 !important;
-        right: -100% !important;
-        width: 70% !important;
-        height: 100vh !important;
-        background-color: var(--bg-secondary) !important;
-        flex-direction: column !important;
-        padding: 20px 20px 20px !important; /* Reduced from 80px at the top */
-        transition: right 0.3s ease !important;
-        z-index: 10 !important;
-        box-shadow: -5px 0 15px var(--shadow-color) !important;
-        margin: 0 !important;
-    }
-    
-    .nav-menu.active {
-        right: 0 !important;
-    }
-    
-    /* When menu is open, transform hamburger to X */
-    .hamburger-menu.active span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg) !important;
-    }
-    
-    .hamburger-menu.active span:nth-child(2) {
-        opacity: 0 !important;
-    }
-    
-    .hamburger-menu.active span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg) !important;
-    }
-    
-    /* Overlay when menu is open */
-    .menu-overlay.active {
-        display: block !important;
-        opacity: 1 !important;
-    }
-    
-    /* Theme toggle positioning on mobile - moved to top of menu */
-    .theme-toggle-container {
-        position: static;
-        margin: 0 0 20px 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    
-    /* Adjusted nav menu items with reduced spacing */
-    .nav-menu li {
-        margin: 5px 0; /* Reduced from 15px */
-        width: 100%;
-    }
-    
-    .nav-menu a {
-        width: 100%;
-        display: block;
-        text-align: center;
-        padding: 8px 0; /* Reduced from 12px */
-    }
-    
-    /* Typography adjustments for mobile */
-    h1 {
-        font-size: 2.2rem;
-    }
-    
-    h2 {
-        font-size: 1.8rem;
-    }
-    
-    h3 {
-        font-size: 1.5rem;
-    }
-    
-    p, li {
-        font-size: 0.95rem;
-    }
-    
-    /* Hero adjustments */
-    .hero {
-        padding: 3rem 0;
-    }
-    
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero h2 {
-        font-size: 1.5rem;
-    }
-    
-    .hero .motto {
-        font-size: 1rem;
-    }
-    
-    /* Section adjustments */
-    section {
-        padding: 2.5rem 0;
-    }
-    
-    /* Container adjustment */
-    .container {
-        padding: 0 15px;
-    }
-    
-    /* House grid adjustments */
-    .house-grid {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 0.5rem;
-    }
-    
-    /* Honor grid adjustments */
-    .honor-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-    
-    /* Champion cards */
-    .champion {
-        padding: 1.5rem;
-    }
-    
-    .crest-frame {
-        width: 120px;
-        height: 120px;
-    }
-    
-    /* Table adjustments */
-    .game-table, .rankings-table {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-    
-    .game-table th, .game-table td,
-    .rankings-table th, .rankings-table td {
-        padding: 0.5rem 0.3rem;
-        font-size: 0.9rem;
-    }
-    
-    /* Year selector adjustments */
-    .year-selector {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
-    }
-    
-    .year-btn {
-        width: 80%;
-    }
-    
-    /* House selection boxes */
-    .selection-box {
-        padding: 1.5rem;
-    }
-    
-    .house-crest {
-        font-size: 4rem;
-    }
-    
-    #houseName {
-        font-size: 2rem;
-    }
+/* ========== HOUSE SELECTION LINK STYLES ========== */
+.house-selection-link {
+    max-width: 600px;
+    margin: 2rem auto 1rem;
+    text-align: center;
+    background-color: var(--bg-accent);
+    border: 3px solid var(--border-primary);
+    border-radius: 10px;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-/* Extra small screens */
-@media screen and (max-width: 480px) {
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero h2 {
-        font-size: 1.3rem;
-    }
-    
-    .nav-brand {
-        font-size: 1.2rem;
-    }
-    
-    .house-grid {
-        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-        gap: 0.3rem;
-    }
-    
-    .house-card {
-        padding: 0.7rem;
-        font-size: 0.9rem;
-    }
-    
-    .crest-frame {
-        width: 100px;
-        height: 100px;
-        border-width: 3px;
-    }
-    
-    .champion h3 {
-        font-size: 1.5rem;
-    }
-    
-    .champion h4 {
-        font-size: 1.2rem;
-    }
-    
-    .accordion-header {
-        font-size: 1rem;
-        padding: 0.8rem;
-    }
-    
-    .draw-button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
+.house-selection-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-color);
 }
 
-/* Desktop-specific overrides to ensure normal appearance on larger screens */
-@media screen and (min-width: 769px) {
-    /* Reset any mobile-specific changes for desktop */
-    .hamburger-menu {
-        display: none !important;
-    }
-    
-    .nav-menu {
-        position: static !important;
-        display: flex !important;
-        flex-direction: row !important;
-        width: auto !important;
-        height: auto !important;
-        background: none !important;
-        padding: 0 !important;
-        box-shadow: none !important;
-        right: 0 !important;
-    }
-    
-    .nav-menu li {
-        width: auto;
-        margin: 0;
-    }
-    
-    .nav-menu a {
-        width: auto;
-        text-align: left;
-    }
-    
-    .theme-toggle-container {
-        position: relative;
-        top: auto;
-        right: auto;
-        margin-left: 1rem;
-    }
-    
-    /* Theme icon positioning */
-    .theme-icon {
-        transition: all 0.3s ease;
-    }
-    
-    [data-theme="dark"] .dark-icon,
-    [data-theme="light"] .light-icon {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    [data-theme="dark"] .light-icon,
-    [data-theme="light"] .dark-icon {
-        opacity: 0;
-        transform: translateY(10px);
-    }
+.selection-image {
+    position: relative;
+    margin-bottom: 2rem;
+    border: 4px solid var(--border-primary);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    max-width: 400px; /* Set your desired width */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Animations and transitions */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.house-selector-image {
+    width: 100%;
+    max-width: 400px; /* Set this to your desired maximum width */
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Centers the image */
+    transition: all 0.5s ease;
 }
 
-.champion .crest {
-    animation: pulse 3s infinite ease-in-out;
+.house-selection-link:hover .house-selector-image {
+    transform: scale(1.05);
 }
 
-/* Accessible touch targets for mobile */
-@media (hover: none) and (pointer: coarse) {
-    button, .house-card, .year-btn, .accordion-header, .nav-menu a {
-        min-height: 44px;
-        min-width: 44px;
-    }
-    
-    .nav-menu a {
-        padding: 12px 15px;
-    }
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.4)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
 }
 
-/* Print styles */
-@media print {
-    .navbar, .hamburger-menu, .theme-toggle-container, .menu-overlay {
-        display: none !important;
-    }
-    
-    body {
-        background: white;
-        color: black;
-        font-size: 12pt;
-    }
-    
-    h1, h2, h3 {
-        color: black;
-        text-shadow: none;
-    }
-    
-    .container {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .champion, .house-card, .game-category {
-        border: 1px solid #ccc;
-        box-shadow: none;
-    }
-    
-    a {
-        color: black;
-        text-decoration: underline;
-    }
-    
-    @page {
-        margin: 2cm;
-    }
+.house-selection-link:hover .image-overlay {
+    opacity: 1;
+}
+
+.overlay-text {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 2.5rem;
+    color: var(--bg-secondary);
+    text-shadow: 0 0 10px var(--text-heading);
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.house-selection-link:hover .overlay-text {
+    transform: translateY(0);
+}
+
+.selection-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--border-primary);
+    color: var(--bg-secondary);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+}
+
+.selection-button:hover {
+    background-color: var(--text-heading);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.button-icon {
+    margin-right: 10px;
+    font-size: 1.4rem;
 }
