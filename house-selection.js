@@ -1,220 +1,238 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banners and Brews 2025 - Memorial Day Tournament</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <!-- Mobile Menu Overlay -->
-    <div class="menu-overlay"></div>
+// House Selection functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Make sure navigation is working properly
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">⚔️ Banners & Brews ⚔️</div>
+    // Remove all active classes first
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Set active class for house selection
+    if (currentPage.includes('house-selection.html')) {
+        document.getElementById('navHouseSelection')?.classList.add('active');
+    }
+    
+    // Ensure theme toggle is working
+    const savedTheme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    // Make sure the theme icons are properly set
+    if (window.themeToggleInit && typeof window.themeToggleInit.updateThemeIcons === 'function') {
+        window.themeToggleInit.updateThemeIcons(savedTheme);
+    }
+    // House names array (same as in script.js)
+    const houses = [
+        "Rat", "Worm", "Toad", "Newt", "Beetle", "Weasel", "Slug", "Bat", 
+        "Lion", "Wolf", "Stag", "Bear", "Boar", "Owl", "Eagle", "Panther", 
+        "Dragon", "Griffin", "Hydra", "Kraken", "Pegasus", "Jackalope", 
+        "Minotaur", "Phoenix"
+    ];
+    
+    // House descriptions with thematic flavor
+    const houseDescriptions = {
+        "Rat": "Swift and cunning, House Rat warriors employ stealth and agility to outmaneuver their foes.",
+        "Worm": "Though humble in appearance, House Worm's persistence and adaptability make them formidable opponents.",
+        "Toad": "Amphibious and resilient, House Toad warriors are deceptively powerful and quick to action.",
+        "Newt": "Regenerative and nimble, House Newt excels in recovery and swift tactical adjustments.",
+        "Beetle": "Protected by natural armor, House Beetle's steadfast endurance outlasts all opposition.",
+        "Weasel": "Quick-witted and relentless, House Weasel warriors are known for their cunning strategies.",
+        "Slug": "Slow but methodical, House Slug leaves a trail of victory through patience and determination.",
+        "Bat": "Masters of the darkness, House Bat uses heightened senses to navigate where others falter.",
+        "Lion": "Majestic and powerful, House Lion leads with courage and commands respect in battle.",
+        "Wolf": "Pack-minded and loyal, House Wolf's strength comes from coordination and teamwork.",
+        "Stag": "Proud and noble, House Stag stands tall with dignity and unwavering resolve.",
+        "Bear": "Mighty and imposing, House Bear's raw strength crushes opposition with overwhelming force.",
+        "Boar": "Fierce and unyielding, House Boar charges forward with unstoppable determination.",
+        "Owl": "Wise and observant, House Owl's tactical insight provides the edge in any contest.",
+        "Eagle": "Sharp-eyed and precise, House Eagle strikes with deadly accuracy from advantageous positions.",
+        "Panther": "Sleek and powerful, House Panther combines grace with lethal efficiency.",
+        "Dragon": "Ancient and feared, House Dragon harnesses primordial power to dominate all challenges.",
+        "Griffin": "Majestic hybrid, House Griffin unites the best qualities of eagle and lion in perfect harmony.",
+        "Hydra": "Resilient and multi-faceted, House Hydra grows stronger with each challenge faced.",
+        "Kraken": "Mysterious and all-encompassing, House Kraken's reach extends to all corners of the battlefield.",
+        "Pegasus": "Swift and ethereal, House Pegasus transcends normal boundaries with grace and speed.",
+        "Jackalope": "Elusive and mythical, House Jackalope combines unlikely traits into surprising strength.",
+        "Minotaur": "Powerful and imposing, House Minotaur's raw strength is matched only by its strategic mind.",
+        "Phoenix": "Eternally reborn, House Phoenix rises from defeat with renewed vigor and unstoppable spirit."
+    };
+    
+    // House crests (emoji representations)
+    const houseCrests = {
+        "Rat": "🐀",
+        "Worm": "🪱",
+        "Toad": "🐸",
+        "Newt": "🦎",
+        "Beetle": "🪲",
+        "Weasel": "🦡",
+        "Slug": "🐌",
+        "Bat": "🦇",
+        "Lion": "🦁",
+        "Wolf": "🐺",
+        "Stag": "🦌",
+        "Bear": "🐻",
+        "Boar": "🐗",
+        "Owl": "🦉",
+        "Eagle": "🦅",
+        "Panther": "🐆",
+        "Dragon": "🐉",
+        "Griffin": "🦅🦁",
+        "Hydra": "🐉🐉",
+        "Kraken": "🦑",
+        "Pegasus": "🦄",
+        "Jackalope": "🐇🦌",
+        "Minotaur": "🐂👤",
+        "Phoenix": "🔥🦅"
+    };
+    
+    // Get DOM elements
+    const drawButton = document.getElementById('drawHouseBtn');
+    const houseName = document.getElementById('houseName');
+    const houseCrest = document.getElementById('houseCrest');
+    const houseDescription = document.getElementById('houseDescription');
+    
+    // Add event listener to the draw button
+    if (drawButton) {
+        drawButton.addEventListener('click', function() {
+            // Add button click animation
+            this.classList.add('clicking');
+            setTimeout(() => {
+                this.classList.remove('clicking');
+            }, 300);
             
-            <!-- Hamburger Menu Button -->
-            <div class="hamburger-menu" id="hamburgerMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            // Start the selection animation
+            selectHouse();
+        });
+    }
+    
+    // Function to select a random house with animation
+    function selectHouse() {
+        // Disable the button during animation
+        drawButton.disabled = true;
+        
+        // Start with rapid shuffling animation
+        let shuffleCount = 0;
+        const maxShuffles = 20;
+        const shuffleInterval = setInterval(() => {
+            // Pick a random house for the animation
+            const randomIndex = Math.floor(Math.random() * houses.length);
+            const randomHouse = houses[randomIndex];
             
-            <ul class="nav-menu">
-                <li><a href="index.html" class="active">Tournament</a></li>
-                <li><a href="house-selection.html">House Selection</a></li>
-                <li><a href="wall-of-honor.html">Wall of Honor</a></li>
-                <li class="theme-toggle-container">
-                    <button id="themeToggle" aria-label="Toggle dark/light mode">
-                        <span class="theme-icon dark-icon">☀️</span>
-                        <span class="theme-icon light-icon">🌙</span>
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <h1>⚔️ Banners and Brews MMXXV ⚔️</h1>
-            <h2>Memorial Day Tournament</h2>
-            <p class="motto">"Through Iron and Ale, Glory Prevails"</p>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Overview Section -->
-        <section class="overview">
-            <div class="container">
-                <h2>⚜️ Tournament Proclamation</h2>
-                <p>Hear ye! Banners and Brews summonseth all to a weekend-long tournament of valor and revelry. Champions shall emerge through trials most dire, whilst representing their appointed Houses. Three masters shalt receive eternal glory through commemorative heraldic pins.</p>
-            </div>
-        </section>
-
-        <!-- Houses Section -->
-        <section class="houses">
-            <div class="container">
-                <h2>🏰 The Great Houses</h2>
-                <p>By royal decree, each participant shall draw their House from the ancient lineages:</p>
-                <div class="house-grid">
-                    <div class="house-card">Rat</div>
-                    <div class="house-card">Worm</div>
-                    <div class="house-card">Toad</div>
-                    <div class="house-card">Newt</div>
-                    <div class="house-card">Beetle</div>
-                    <div class="house-card">Weasel</div>
-                    <div class="house-card">Slug</div>
-                    <div class="house-card">Bat</div>
-                    <div class="house-card">Lion</div>
-                    <div class="house-card">Wolf</div>
-                    <div class="house-card">Stag</div>
-                    <div class="house-card">Bear</div>
-                    <div class="house-card">Boar</div>
-                    <div class="house-card">Owl</div>
-                    <div class="house-card">Eagle</div>
-                    <div class="house-card">Panther</div>
-                    <div class="house-card">Dragon</div>
-                    <div class="house-card">Griffin</div>
-                    <div class="house-card">Hydra</div>
-                    <div class="house-card">Kraken</div>
-                    <div class="house-card">Pegasus</div>
-                    <div class="house-card">Jackalope</div>
-                    <div class="house-card">Minotaur</div>
-                    <div class="house-card">Phoenix</div>
-                </div>
-                <p class="note">⚔️ By ancient privilege, only the triumphant Three may redraw their House next year.</p>
-            </div>
-        </section>
-
-        <!-- Rest of the content remains the same... -->
-        <!-- Hall of Honor -->
-        <section class="hall-of-honor">
-            <div class="container">
-                <h2>🏛️ Hall of Honor - MMXXIV</h2>
-                <div class="honor-grid">
-                    <div class="champion gold">
-                        <div class="crest-frame">
-                            <div class="crest">⚔️👑⚔️</div>
-                        </div>
-                        <h3>Grand Champion</h3>
-                        <h4>House [Name]</h4>
-                        <p>First Victor of MMXXIV</p>
-                    </div>
-                    <div class="champion silver">
-                        <div class="crest-frame">
-                            <div class="crest">🛡️⭐🛡️</div>
-                        </div>
-                        <h3>High Contender</h3>
-                        <h4>House [Name]</h4>
-                        <p>Second Victor of MMXXIV</p>
-                    </div>
-                    <div class="champion bronze">
-                        <div class="crest-frame">
-                            <div class="crest">⚜️🗡️⚜️</div>
-                        </div>
-                        <h3>Honorable Warrior</h3>
-                        <h4>House [Name]</h4>
-                        <p>Third Victor of MMXXIV</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scoring Section -->
-        <section class="scoring">
-            <div class="container">
-                <h2>⚖️ Tournament Arbitration</h2>
-                <p>Points shall be awarded as thus:</p>
-                <ul class="scoring-list">
-                    <li><strong>First Place:</strong> III Points</li>
-                    <li><strong>Second Place:</strong> II Points</li>
-                    <li><strong>Third Place:</strong> I Point</li>
-                    <li><strong>All Others:</strong> Naught</li>
-                </ul>
-                <p>The sum total shall determine thy station in history.</p>
-            </div>
-        </section>
-
-        <!-- Prizes Section -->
-        <section class="prizes">
-            <div class="container">
-                <h2>🎖️ Rewards of Valor</h2>
-                <ul>
-                    <li>The triumphant Three shall receive heraldic pins, forged to commemorate their station.</li>
-                    <li>These tokens may adorn banners, armor, or holy shrines as befits their glory.</li>
-                    <li>Each pin bears the mark of year and ranking—eternal proof of thy prowess.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Games Section -->
-        <section class="games">
-            <div class="container">
-                <h2>⚔️ Trials of Combat</h2>
+            // Update display during animation
+            houseName.textContent = randomHouse;
+            houseCrest.textContent = houseCrests[randomHouse] || "🏰";
+            
+            // Speed up and then slow down the animation
+            shuffleCount++;
+            
+            // End the shuffling animation
+            if (shuffleCount >= maxShuffles) {
+                clearInterval(shuffleInterval);
                 
-                <div class="game-category">
-                    <h3>Allied Contests (Partners Rotate):</h3>
-                    <ul>
-                        <li>Spikeball</li>
-                        <li>Cornhole</li>
-                        <li>Polish Horseshoes</li>
-                        <li>Badminton</li>
-                        <li>Beer Pong</li>
-                        <li>Beer Die</li>
-                        <li>Beerio Kart</li>
-                        <li>4-Way Flip Cup</li>
-                    </ul>
-                </div>
-
-                <div class="game-category">
-                    <h3>Individual Challenges:</h3>
-                    <ul>
-                        <li>Stack Cup</li>
-                        <li>Rummy</li>
-                        <li>Paper Airplane Toss</li>
-                        <li>Catan</li>
-                        <li>Sudoku</li>
-                        <li>First to Hit a Nail in Wood</li>
-                        <li>Golf</li>
-                    </ul>
-                </div>
-
-                <div class="game-category bonus">
-                    <h3>Bonus Challenge - The Consumption Gauntlet:</h3>
-                    <p>We shall tally each warrior's ale consumption—additional glory to those of mighty thirst.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Logistics Section -->
-        <section class="logistics">
-            <div class="container">
-                <h2>📜 Tournament Decree</h2>
-                <ul>
-                    <li>Battles rage within castle and without, regardless of weather's whim.</li>
-                    <li>Challenges range from physical prowess to strategic cunning to drinking capacity.</li>
-                    <li>Some skirmishes last but moments; others endure the hour.</li>
-                    <li>Bring thy finest skills, noble spirit, and mighty constitution!</li>
-                </ul>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>"Victori Spolia" - To the Victor, the Spoils</p>
-            <p>&copy; MMXXV Banners and Brews Tournament. By Royal Decree.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-    <script src="theme.js"></script>
-    <script src="mobile-menu.js"></script>
-</body>
-</html>
+                // Select the final house
+                const finalHouse = drawRandomHouse();
+                
+                // Add dramatic pause before revealing final result
+                setTimeout(() => {
+                    // Reveal the final house with fanfare
+                    revealFinalHouse(finalHouse);
+                }, 500);
+            }
+        }, 100);
+    }
+    
+    // Function to randomly select a house
+    function drawRandomHouse() {
+        const randomIndex = Math.floor(Math.random() * houses.length);
+        return houses[randomIndex];
+    }
+    
+    // Function to reveal the final selected house
+    function revealFinalHouse(house) {
+        // Add dramatic reveal animation
+        houseName.style.transform = "scale(0.8)";
+        houseCrest.style.transform = "scale(0.8)";
+        
+        // Add a background flash effect to the selection box
+        const selectionBox = document.querySelector('.selection-box');
+        selectionBox.style.boxShadow = "0 0 30px var(--text-heading)";
+        
+        setTimeout(() => {
+            // Update with final house information
+            houseName.textContent = "House " + house;
+            houseCrest.textContent = houseCrests[house] || "🏰";
+            houseDescription.textContent = houseDescriptions[house] || 
+                "A noble house with a storied history and unique strengths.";
+            
+            // Add reveal animation
+            houseName.style.transform = "scale(1.2)";
+            houseCrest.style.transform = "scale(1.2)";
+            houseName.classList.add('revealed');
+            
+            // Return selection box to normal
+            setTimeout(() => {
+                selectionBox.style.boxShadow = "";
+            }, 1000);
+            
+            setTimeout(() => {
+                houseName.style.transform = "scale(1)";
+                houseCrest.style.transform = "scale(1)";
+                
+                // Re-enable the button
+                drawButton.disabled = false;
+                drawButton.textContent = "Draw Again!";
+            }, 300);
+        }, 200);
+    }
+    
+    // Add CSS for the button click animation and house selection effects
+    const style = document.createElement('style');
+    style.textContent = `
+        .clicking {
+            transform: scale(0.95) !important;
+        }
+        
+        #houseCrest, #houseName {
+            transition: transform 0.3s ease;
+        }
+        
+        .selected-house-display {
+            transition: all 0.5s ease;
+        }
+        
+        #houseCrest {
+            display: inline-block;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        #houseName {
+            position: relative;
+        }
+        
+        #houseName::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--text-heading);
+            transition: width 0.5s ease;
+        }
+        
+        #houseName.revealed::after {
+            width: 80%;
+        }
+    `;
+    document.head.appendChild(style);
+});
