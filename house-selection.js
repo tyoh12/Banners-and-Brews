@@ -9,16 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     console.log("Current page:", currentPage);
     
-    // Remove all active classes first
+    // Remove all active classes first - with null checks
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.classList.remove('active');
     });
     
-    // Set active class for house selection
+    // Set active class for house selection - with null checks
     if (currentPage.includes('house-selection.html')) {
         const navElement = document.getElementById('navHouseSelection');
         console.log("Navigation element found:", navElement ? true : false);
-        navElement?.classList.add('active');
+        if (navElement) {
+            navElement.classList.add('active');
+        }
     }
     
     // Ensure theme toggle is working
@@ -134,6 +136,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectHouse() {
         console.log("selectHouse function called");
         
+        // Check if all required elements exist
+        if (!drawButton || !houseName || !houseCrest || !houseDescription) {
+            console.error("Missing required DOM elements for house selection!");
+            return;
+        }
+        
         // Disable the button during animation
         drawButton.disabled = true;
         
@@ -182,13 +190,21 @@ document.addEventListener('DOMContentLoaded', function() {
     function revealFinalHouse(house) {
         console.log("Revealing final house:", house);
         
+        // Check if all required elements exist
+        if (!houseName || !houseCrest || !houseDescription) {
+            console.error("Missing required DOM elements for revealing house!");
+            return;
+        }
+        
         // Add dramatic reveal animation
         houseName.style.transform = "scale(0.8)";
         houseCrest.style.transform = "scale(0.8)";
         
         // Add a background flash effect to the selection box
         const selectionBox = document.querySelector('.selection-box');
-        selectionBox.style.boxShadow = "0 0 30px var(--text-heading)";
+        if (selectionBox) {
+            selectionBox.style.boxShadow = "0 0 30px var(--text-heading)";
+        }
         
         setTimeout(() => {
             // Update with final house information
@@ -206,7 +222,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Return selection box to normal
             setTimeout(() => {
-                selectionBox.style.boxShadow = "";
+                if (selectionBox) {
+                    selectionBox.style.boxShadow = "";
+                }
             }, 1000);
             
             setTimeout(() => {

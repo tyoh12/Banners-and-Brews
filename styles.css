@@ -10,111 +10,6 @@
     box-sizing: border-box;
 }
 
-//* Add this to your styles.css file */
-
-/* Default state - hamburger hidden on desktop */
-.hamburger-menu {
-    display: none;
-}
-
-/* Media query for mobile devices */
-@media screen and (max-width: 768px) {
-    /* Show hamburger menu on mobile */
-    .hamburger-menu {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 21px;
-        cursor: pointer;
-        position: relative;
-        z-index: 1000;
-    }
-    
-    /* Mobile menu styling */
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        background-color: var(--bg-secondary);
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding: 80px 20px 30px;
-        transition: all 0.4s ease;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
-        z-index: 99;
-    }
-    
-    .nav-menu.active {
-        right: 0;
-    }
-    
-    .nav-menu li {
-        width: 100%;
-        margin: 10px 0;
-    }
-    
-    .nav-menu a {
-        width: 100%;
-        text-align: center;
-        padding: 12px;
-    }
-    
-    /* Active state for hamburger */
-    .hamburger-menu.active span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-    }
-    
-    .hamburger-menu.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .hamburger-menu.active span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
-    }
-}
-
-/* Print styles */
-@media print {
-    .navbar, .hamburger-menu, .theme-toggle-container, .menu-overlay {
-        display: none !important;
-    }
-    
-    body {
-        background: white;
-        color: black;
-        font-size: 12pt;
-    }
-    
-    h1, h2, h3 {
-        color: black;
-        text-shadow: none;
-    }
-    
-    .container {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .champion, .game-category {
-        border: 1px solid #ccc;
-        box-shadow: none;
-    }
-    
-    a {
-        color: black;
-        text-decoration: underline;
-    }
-    
-    @page {
-        margin: 2cm;
-    }
-}
-
 /* ========== THEME VARIABLES ========== */
 :root {
     /* Dark theme variables (default) */
@@ -354,19 +249,13 @@ li {
     color: var(--bg-secondary);
 }
 
-/* ========== MOBILE MENU STYLES ========== */
-/* Hamburger button */
+/* ========== RESPONSIVE STYLES & MOBILE MENU ========== */
+/* Hamburger menu - hidden by default (desktop) */
 .hamburger-menu {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    position: relative;
-    z-index: 1000; /* Ensure it's above other elements */
+    display: none !important;
 }
 
+/* Hamburger button structure */
 .hamburger-menu span {
     display: block;
     height: 3px;
@@ -1092,6 +981,7 @@ footer p:first-child {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-decoration
     text-decoration: none;
     margin-bottom: 1.5rem;
 }
@@ -1105,4 +995,240 @@ footer p:first-child {
 .button-icon {
     margin-right: 10px;
     font-size: 1.4rem;
+}
+
+/* ========== RESPONSIVE STYLES & MEDIA QUERIES ========== */
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+    /* Show hamburger menu on mobile */
+    .hamburger-menu {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1000;
+    }
+    
+    /* Mobile menu styling */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 80px 20px 30px;
+        transition: all 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        z-index: 99;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .nav-menu a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+    
+    /* Active state for hamburger */
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    /* Additional mobile styles */
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .honor-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rankings-table, .game-table {
+        font-size: 0.9rem;
+    }
+    
+    .selection-box {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2.8rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+    
+    .year-navigation {
+        padding: 1.5rem 0;
+    }
+    
+    .year-selector {
+        gap: 0.5rem;
+    }
+    
+    .crest-frame {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .accordion-header {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+    
+    .game-category {
+        padding: 1rem;
+    }
+    
+    .hero::before, .hero::after {
+        display: none;
+    }
+}
+
+/* Small mobile devices */
+@media screen and (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.2rem;
+    }
+    
+    .year-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+    
+    #houseCrest {
+        font-size: 4rem;
+    }
+    
+    .draw-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .rankings-table, .game-table {
+        font-size: 0.8rem;
+    }
+    
+    .rankings-table th, .rankings-table td,
+    .game-table th, .game-table td {
+        padding: 0.5rem;
+    }
+    
+    .selection-image {
+        max-width: 100%;
+    }
+    
+    .overlay-text {
+        font-size: 1.8rem;
+    }
+    
+    .crest {
+        font-size: 1.5rem;
+    }
+    
+    .selection-box {
+        padding: 1rem;
+    }
+    
+    .house-selection h1 {
+        font-size: 2.2rem;
+    }
+    
+    .selection-intro {
+        font-size: 1.1rem;
+    }
+    
+    #houseName {
+        font-size: 2rem;
+    }
+    
+    .house-crest {
+        font-size: 4rem;
+    }
+    
+    #houseDescription {
+        font-size: 1rem;
+    }
+    
+    .accordion-content {
+        overflow-x: auto;
+    }
+}
+
+/* Print styles */
+@media print {
+    .navbar, .hamburger-menu, .theme-toggle-container, .menu-overlay {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+        font-size: 12pt;
+    }
+    
+    h1, h2, h3 {
+        color: black;
+        text-shadow: none;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .champion, .game-category {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+    
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+    
+    @page {
+        margin: 2cm;
+    }
 }

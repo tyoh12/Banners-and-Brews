@@ -38,25 +38,28 @@
 </nav>
 
 <script>
-// Set active nav link based on current page
-document.addEventListener('DOMContentLoaded', function() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Remove all active classes first
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.classList.remove('active');
+    // Set active nav link based on current page
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        // Remove all active classes first
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Set active class based on current page - with null checks
+        if (currentPage.includes('index.html') || currentPage === '') {
+            const navHome = document.getElementById('navHome');
+            if (navHome) navHome.classList.add('active');
+        } else if (currentPage.includes('house-selection.html')) {
+            const navHouseSelection = document.getElementById('navHouseSelection');
+            if (navHouseSelection) navHouseSelection.classList.add('active');
+        } else if (currentPage.includes('wall-of-honor.html')) {
+            const navWallOfHonor = document.getElementById('navWallOfHonor');
+            if (navWallOfHonor) navWallOfHonor.classList.add('active');
+        }
     });
-    
-    // Set active class based on current page
-    if (currentPage.includes('index.html') || currentPage === '') {
-        document.getElementById('navHome').classList.add('active');
-    } else if (currentPage.includes('house-selection.html')) {
-        document.getElementById('navHouseSelection').classList.add('active');
-    } else if (currentPage.includes('wall-of-honor.html')) {
-        document.getElementById('navWallOfHonor').classList.add('active');
-    }
-});
-</script>
+    </script>
 
     <!-- House Selection Section -->
     <section class="house-selection">
