@@ -79,6 +79,11 @@
     border: 1px solid var(--text-heading);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     vertical-align: middle;
+    max-width: 30px;
+    max-height: 30px;
+    display: inline-block;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 /* ========== GLOBAL STYLES ========== */
@@ -430,15 +435,19 @@ section:nth-child(even) {
 }
 
 .crest-frame {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--border-primary);
     margin: 0 auto 1.5rem;
-    border: 5px solid;
-    border-radius: 75px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    box-shadow: 0 5px 15px var(--shadow-color);
     background-color: var(--bg-card);
+    overflow: hidden;
+    position: relative;
 }
 
 .gold .crest-frame {
@@ -472,6 +481,11 @@ section:nth-child(even) {
     border-radius: 50%;
     border: 3px solid var(--text-heading);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .champion h3 {
