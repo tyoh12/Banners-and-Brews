@@ -64,6 +64,23 @@
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
+/* House images in rankings tables */
+.house-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.rank-house-image {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--text-heading);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    vertical-align: middle;
+}
+
 /* ========== GLOBAL STYLES ========== */
 body {
     font-family: 'Cinzel', serif;
@@ -443,6 +460,18 @@ section:nth-child(even) {
     font-size: 2rem;
     line-height: 1;
     text-shadow: 3px 3px 6px var(--shadow-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.crest img.house-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--text-heading);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .champion h3 {
@@ -981,7 +1010,6 @@ footer p:first-child {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-decoration
     text-decoration: none;
     margin-bottom: 1.5rem;
 }

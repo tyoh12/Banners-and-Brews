@@ -73,32 +73,32 @@ document.addEventListener('DOMContentLoaded', function() {
         "Phoenix": "Eternally reborn, House Phoenix rises from defeat with renewed vigor and unstoppable spirit."
     };
     
-    // House crests (emoji representations)
+    // House crests (image paths)
     const houseCrests = {
-        "Rat": "🐀",
-        "Worm": "🪱",
-        "Toad": "🐸",
-        "Newt": "🦎",
-        "Beetle": "🪲",
-        "Weasel": "🦡",
-        "Slug": "🐌",
-        "Bat": "🦇",
-        "Lion": "🦁",
-        "Wolf": "🐺",
-        "Stag": "🦌",
-        "Bear": "🐻",
-        "Boar": "🐗",
-        "Owl": "🦉",
-        "Eagle": "🦅",
-        "Panther": "🐆",
-        "Dragon": "🐉",
-        "Griffin": "🦅🦁",
-        "Hydra": "🐉🐉",
-        "Kraken": "🦑",
-        "Pegasus": "🦄",
-        "Jackalope": "🐇🦌",
-        "Minotaur": "🐂👤",
-        "Phoenix": "🔥🦅"
+        "Rat": "images/rat.jpeg",
+        "Worm": "images/worm.jpeg",
+        "Toad": "images/toad.jpeg",
+        "Newt": "images/newt.jpeg",
+        "Beetle": "images/beetle.jpeg",
+        "Weasel": "images/weasel.jpeg",
+        "Slug": "images/slug.jpeg",
+        "Bat": "images/bat.jpeg",
+        "Lion": "images/Lion.jpg",
+        "Wolf": "images/wolf1.jpg",
+        "Stag": "images/Stag1.jpg",
+        "Bear": "images/Bear1.jpg",
+        "Boar": "images/Boar1.jpg",
+        "Owl": "images/Owl2.jpg",
+        "Eagle": "images/Eagle2.jpg",
+        "Panther": "images/panther2.jpg",
+        "Dragon": "images/dragon5.jpg",
+        "Griffin": "images/griffin.jpg",
+        "Hydra": "images/hydra.jpg",
+        "Kraken": "images/kraken.jpg",
+        "Pegasus": "images/pegasus.jpg",
+        "Jackalope": "images/jkrabbit.jpg",
+        "Minotaur": "images/minotaur.jpg",
+        "Phoenix": "images/phoenix.jpg"
     };
     
     // Get DOM elements
@@ -150,6 +150,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const maxShuffles = 20;
         console.log("Starting shuffle animation with", maxShuffles, "iterations");
         
+        // Create image element if it doesn't exist yet
+        let crestImg = houseCrest.querySelector('img');
+        if (!crestImg) {
+            crestImg = document.createElement('img');
+            houseCrest.innerHTML = '';
+            houseCrest.appendChild(crestImg);
+            crestImg.alt = 'House Crest';
+            crestImg.style.opacity = '0.8';
+        }
+        
         const shuffleInterval = setInterval(() => {
             // Pick a random house for the animation
             const randomIndex = Math.floor(Math.random() * houses.length);
@@ -157,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update display during animation
             houseName.textContent = randomHouse;
-            houseCrest.textContent = houseCrests[randomHouse] || "🏰";
+            crestImg.src = houseCrests[randomHouse] || 'images/house-selection.jpg';
             
             // Speed up and then slow down the animation
             shuffleCount++;
@@ -209,7 +219,20 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             // Update with final house information
             houseName.textContent = "House " + house;
-            houseCrest.textContent = houseCrests[house] || "🏰";
+            
+            // Create or update image element for house crest
+            let crestImg = houseCrest.querySelector('img');
+            if (!crestImg) {
+                // If no image exists yet, create one
+                crestImg = document.createElement('img');
+                houseCrest.innerHTML = '';
+                houseCrest.appendChild(crestImg);
+            }
+            
+            // Set the image source
+            crestImg.src = houseCrests[house] || 'images/house-selection.jpg';
+            crestImg.alt = 'House ' + house + ' Crest';
+            
             houseDescription.textContent = houseDescriptions[house] || 
                 "A noble house with a storied history and unique strengths.";
             
@@ -256,9 +279,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         #houseCrest {
             display: inline-block;
-            font-size: 5rem;
             margin-bottom: 1rem;
             animation: pulse 3s infinite ease-in-out;
+        }
+        
+        #houseCrest img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--text-heading);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
         
         @keyframes pulse {
