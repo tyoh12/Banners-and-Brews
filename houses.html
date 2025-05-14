@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noble Houses - Banners and Brews 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Dropdown menu styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-secondary);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 5px;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: var(--bg-accent);
+            color: var(--text-heading);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* Houses page specific styles */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/tournament-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-heading);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            background-color: var(--bg-secondary);
+        }
+        
+        [data-theme="light"] .hero {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('images/tournament-banner.jpg');
+            background-color: var(--bg-tertiary);
+        }
+        
+        .hero h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .houses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .house-card {
+            background-color: var(--bg-card);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        
+        .house-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+        
+        .house-card-image-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 1.5rem auto 0;
+            border: 5px solid var(--gold-accent);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .house-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .house-card-content {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .house-card-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-heading);
+        }
+        
+        .house-card-motto {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .house-card-rank {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--bg-accent);
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .rank-1 {
+            background-color: var(--gold-accent);
+            color: #000;
+        }
+        
+        .rank-2 {
+            background-color: #c0c0c0;
+            color: #000;
+        }
+        
+        .rank-3 {
+            background-color: #cd7f32;
+            color: #000;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .houses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Mobile Menu Overlay -->
+<div class="menu-overlay"></div>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="container">
+        <a class="nav-brand" href="index.html" style="text-decoration: none; color: inherit;">⚔️ Banners & Brews ⚔️</a>
+        
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger-menu" id="hamburgerMenu" style="display: flex; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; cursor: pointer; z-index: 1000;">
+            <span style="display: block; height: 3px; width: 100%; background-color: #d4af37; margin-bottom: 5px;"></span>
+            <span style="display: block; height: 3px; width: 100%; background-color: #d4af37; margin-bottom: 5px;"></span>
+            <span style="display: block; height: 3px; width: 100%; background-color: #d4af37;"></span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html">Tournament</a></li>
+            <li><a href="house-selection.html">House Selection</a></li>
+            <li><a href="wall-of-honor.html">Wall of Honor</a></li>
+            <li class="dropdown">
+                <a href="houses.html" class="dropdown-toggle">Noble Houses</a>
+                <ul class="dropdown-menu">
+                    <li><a href="houses/house-weasel.html">House Weasel</a></li>
+                    <li><a href="houses/house-rat.html">House Rat</a></li>
+                    <li><a href="houses/house-beetle.html">House Beetle</a></li>
+                    <li><a href="houses/house-slug.html">House Slug</a></li>
+                    <li><a href="houses/house-bat.html">House Bat</a></li>
+                    <li><a href="houses/house-toad.html">House Toad</a></li>
+                    <li><a href="houses/house-newt.html">House Newt</a></li>
+                    <li><a href="houses/house-worm.html">House Worm</a></li>
+                </ul>
+            </li>
+            <li class="theme-toggle-container">
+                <button id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span class="theme-icon dark-icon">☀️</span>
+                    <span class="theme-icon light-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="hero">
+    <div class="container">
+        <h1>The Noble Houses of the Realm</h1>
+        <p>Eight great houses competed for glory in the inaugural Banners and Brews Tournament of MMXXIV. Learn about their histories, lords, and achievements in the grand competition.</p>
+    </div>
+</header>
+
+<!-- Houses Grid Section -->
+<section>
+    <div class="container">
+        <div class="houses-grid">
+            <!-- House Weasel Card -->
+            <a href="houses/house-weasel.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/weasel.jpeg" alt="House Weasel" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Weasel</h2>
+                    <p class="house-card-motto">"Swift, Cunning, Victorious"</p>
+                    <div class="house-card-rank rank-1">1st Place - Grand Champion</div>
+                </div>
+            </a>
+            
+            <!-- House Rat Card -->
+            <a href="houses/house-rat.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/rat.jpeg" alt="House Rat" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Rat</h2>
+                    <p class="house-card-motto">"Clever, Resourceful, Unyielding"</p>
+                    <div class="house-card-rank rank-2">2nd Place - High Contender</div>
+                </div>
+            </a>
+            
+            <!-- House Beetle Card -->
+            <a href="houses/house-beetle.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/beetle.jpeg" alt="House Beetle" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Beetle</h2>
+                    <p class="house-card-motto">"Strength in Persistence"</p>
+                    <div class="house-card-rank rank-3">3rd Place - Bronze Champion</div>
+                </div>
+            </a>
+            
+            <!-- House Slug Card -->
+            <a href="houses/house-slug.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/slug.jpeg" alt="House Slug" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Slug</h2>
+                    <p class="house-card-motto">"Slow and Steady Prevails"</p>
+                    <div class="house-card-rank">4th Place</div>
+                </div>
+            </a>
+            
+            <!-- House Bat Card -->
+            <a href="houses/house-bat.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/bat.jpeg" alt="House Bat" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Bat</h2>
+                    <p class="house-card-motto">"Swift in Darkness, Keen in Sight"</p>
+                    <div class="house-card-rank">5th Place</div>
+                </div>
+            </a>
+            
+            <!-- House Toad Card -->
+            <a href="houses/house-toad.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/toad.jpeg" alt="House Toad" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Toad</h2>
+                    <p class="house-card-motto">"Resilient in Adversity"</p>
+                    <div class="house-card-rank">6th Place</div>
+                </div>
+            </a>
+            
+            <!-- House Newt Card -->
+            <a href="houses/house-newt.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/newt.jpeg" alt="House Newt" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Newt</h2>
+                    <p class="house-card-motto">"Adaptable and Regenerative"</p>
+                    <div class="house-card-rank">7th Place</div>
+                </div>
+            </a>
+            
+            <!-- House Worm Card -->
+            <a href="houses/house-worm.html" class="house-card">
+                <div class="house-card-image-container">
+                    <img src="images/worm.jpeg" alt="House Worm" class="house-card-image">
+                </div>
+                <div class="house-card-content">
+                    <h2 class="house-card-title">House Worm</h2>
+                    <p class="house-card-motto">"Beneath the Surface, Strength Grows"</p>
+                    <div class="house-card-rank">8th Place</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>© 2025 Banners and Brews Tournament. All rights reserved.</p>
+        <p>Designed for glory, honor, and the finest of competitions.</p>
+    </div>
+</footer>
+
+<script>
+// Mobile menu toggle and dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown menu functionality
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        // For mobile: handle click on dropdown toggle
+        dropdownToggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                if (window.innerWidth <= 768) {
+                    dropdownMenu.style.display = 'none';
+                }
+            }
+        });
+    }
+    
+    const hamburger = document.getElementById('hamburgerMenu');
+    const navMenu = document.querySelector('.nav-menu');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    
+    // Toggle mobile menu
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+    
+    // Close mobile menu when clicking outside
+    menuOverlay.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    });
+});
+</script>
+<script src="theme.js"></script>
+</body>
+</html>

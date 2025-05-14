@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Bat - Banners and Brews 2025</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Dropdown menu styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-secondary);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 5px;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: var(--bg-accent);
+            color: var(--text-heading);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        /* House-specific styles */
+        .house-banner {
+            background-color: var(--bg-secondary);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banners/bat-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-heading);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        [data-theme="light"] .house-banner {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../images/banners/bat-banner.jpg');
+            background-color: var(--bg-tertiary);
+        }
+        
+        .house-crest-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 2rem;
+            border: 5px solid var(--accent-color, #444444);
+            box-shadow: 0 0 20px rgba(68, 68, 68, 0.5);
+        }
+        
+        .house-crest-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .house-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .house-motto {
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .house-section {
+            padding: 3rem 0;
+            background-color: var(--bg-primary);
+        }
+        
+        [data-theme="light"] .house-section {
+            background-color: var(--bg-tertiary);
+        }
+        
+        .house-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .house-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .house-history, .house-lord {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .lord-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .lord-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--text-heading);
+        }
+        
+        .achievements-section {
+            background-color: var(--bg-accent);
+            padding: 3rem 0;
+        }
+        
+        .achievement-card {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border-left: 5px solid var(--accent-color, #444444);
+        }
+        
+        .achievement-title {
+            font-size: 1.5rem;
+            color: var(--text-heading);
+            margin-bottom: 0.5rem;
+        }
+        
+        .achievement-year {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .tournament-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            color: var(--text-heading);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .house-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .house-title {
+                font-size: 2.5rem;
+            }
+            
+            .house-crest-container {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Mobile Menu Overlay -->
+<div class="menu-overlay"></div>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="container">
+        <a class="nav-brand" href="../index.html" style="text-decoration: none; color: inherit;">⚔️ Banners & Brews ⚔️</a>
+        
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger-menu" id="hamburgerMenu" style="display: flex; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; cursor: pointer; z-index: 1000;">
+            <span style="display: block; height: 3px; width: 100%; background-color: #d4af37; margin-bottom: 5px;"></span>
+            <span style="display: block; height: 3px; width: 100%; background-color: #d4af37; margin-bottom: 5px;"></span>
+            <span style="display: block; height: 3px; width: 100%; background-color: #d4af37;"></span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="../index.html">Tournament</a></li>
+            <li><a href="../house-selection.html">House Selection</a></li>
+            <li><a href="../wall-of-honor.html">Wall of Honor</a></li>
+            <li class="dropdown">
+                <a href="../houses.html" class="dropdown-toggle">Noble Houses</a>
+                <ul class="dropdown-menu">
+                    <li><a href="house-weasel.html">House Weasel</a></li>
+                    <li><a href="house-rat.html">House Rat</a></li>
+                    <li><a href="house-beetle.html">House Beetle</a></li>
+                    <li><a href="house-slug.html">House Slug</a></li>
+                    <li><a href="house-bat.html">House Bat</a></li>
+                    <li><a href="house-toad.html">House Toad</a></li>
+                    <li><a href="house-newt.html">House Newt</a></li>
+                    <li><a href="house-worm.html">House Worm</a></li>
+                </ul>
+            </li>
+            <li class="theme-toggle-container">
+                <button id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span class="theme-icon dark-icon">☀️</span>
+                    <span class="theme-icon light-icon">🌙</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- House Banner Section -->
+<header class="house-banner">
+    <div class="container">
+        <div class="house-crest-container">
+            <img src="../images/bat.jpeg" alt="House Bat Crest" class="house-crest-image">
+        </div>
+        <h1 class="house-title">House Bat</h1>
+        <p class="house-motto">"Swift in Darkness, Keen in Sight"</p>
+    </div>
+</header>
+
+<!-- House Information Section -->
+<section class="house-section">
+    <div class="container">
+        <h2>⚜️ House Information ⚜️</h2>
+        <div class="house-info">
+            <div class="house-history">
+                <h3>History & Heritage</h3>
+                <p>House Bat emerged from the mysterious caves of the Northern Mountains, where their ancestors developed exceptional night vision and awareness of their surroundings. For generations, the Bats have been respected for their ability to navigate difficult situations with precision and speed.</p>
+                <p>Founded by Lord Noctus the Perceptive during the kingdom's darkest nights, House Bat established itself as a house of swift action and keen observation. Their ancestral stronghold, Echo Cavern, is known for its complex architecture that only those with exceptional spatial awareness can navigate.</p>
+                <p>The house colors of black and silver represent their nocturnal nature and their swift movements. Their sigil, the vigilant bat, symbolizes their philosophy of seeing what others miss and striking with precision when the moment is right.</p>
+            </div>
+            <div class="house-lord">
+                <h3>The Lord of House Bat</h3>
+                <div class="lord-info">
+                    <img src="../images/lords/nathan-bat.jpg" alt="Nathan of House Bat" class="lord-image" onerror="this.src='../images/bat.jpeg'">
+                    <div>
+                        <h4>Lord Nathan the Swift</h4>
+                        <p>Fifth Place Contender of MMXXIV</p>
+                    </div>
+                </div>
+                <p>Lord Nathan rose to leadership of House Bat through his exceptional reflexes and ability to perceive opportunities others missed. Known for his quick movements and decisive action, he has led his house to a respectable fifth place in the Banners and Brews tournament of 2024.</p>
+                <p>His lordship is characterized by rapid adaptation and precise execution - qualities that have earned House Bat recognition for their performance in speed-based challenges. Under his guidance, House Bat has become known for their ability to strike quickly and effectively.</p>
+                <p>Lord Nathan's favorite saying: "Victory comes to those who see the opportunity first and act without hesitation."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Achievements Section -->
+<section class="achievements-section">
+    <div class="container">
+        <h2>🏆 Achievements & Honors 🏆</h2>
+        
+        <div class="achievement-card">
+            <h3 class="achievement-title">Fifth Place in Banners and Brews</h3>
+            <p class="achievement-year">MMXXIV (2024)</p>
+            <p>House Bat secured a respectable fifth place in the inaugural Banners and Brews tournament, demonstrating remarkable speed and precision across various competitions.</p>
+        </div>
+        
+        <div class="achievement-card">
+            <h3 class="achievement-title">First Place - Speed Challenges</h3>
+            <p class="achievement-year">MMXXIV (2024)</p>
+            <p>House Bat dominated the speed-based challenges, showcasing their legendary quickness and reflexes that left other competitors in awe.</p>
+        </div>
+        
+        <h3>Tournament Statistics</h3>
+        <div class="tournament-stats">
+            <div class="stat-card">
+                <div class="stat-value">5th</div>
+                <div class="stat-label">Overall Ranking</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">55</div>
+                <div class="stat-label">Total Points</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1</div>
+                <div class="stat-label">Individual Contest Victories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1</div>
+                <div class="stat-label">Team Contest Victories</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Houses Section -->
+<section class="house-section">
+    <div class="container">
+        <h2>⚔️ Alliances & Rivalries ⚔️</h2>
+        <div class="house-info">
+            <div>
+                <h3>Allied Houses</h3>
+                <ul>
+                    <li><a href="house-rat.html">House Rat</a> - A natural alliance of nocturnal strategists</li>
+                    <li><a href="house-weasel.html">House Weasel</a> - United through shared values of speed and precision</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Rival Houses</h3>
+                <ul>
+                    <li><a href="house-beetle.html">House Beetle</a> - A rivalry born from contrasting approaches to competition</li>
+                    <li><a href="house-slug.html">House Slug</a> - Competitors with opposing philosophies of speed vs. endurance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>© 2025 Banners and Brews Tournament. All rights reserved.</p>
+        <p>Designed for glory, honor, and the finest of competitions.</p>
+    </div>
+</footer>
+
+<script>
+// Mobile menu toggle and dropdown functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Dropdown menu functionality
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        // For mobile: handle click on dropdown toggle
+        dropdownToggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                if (window.innerWidth <= 768) {
+                    dropdownMenu.style.display = 'none';
+                }
+            }
+        });
+    }
+    
+    const hamburger = document.getElementById('hamburgerMenu');
+    const navMenu = document.querySelector('.nav-menu');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    
+    // Toggle mobile menu
+    hamburger.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+    
+    // Close mobile menu when clicking outside
+    menuOverlay.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.classList.remove('menu-open');
+    });
+});
+</script>
+<script src="../theme.js"></script>
+</body>
+</html>

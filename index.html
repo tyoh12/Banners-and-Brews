@@ -6,6 +6,52 @@
     <title>Banners and Brews 2025 - Memorial Day Tournament</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Dropdown menu styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-secondary);
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            border-radius: 5px;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: var(--bg-accent);
+            color: var(--text-heading);
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <!-- Mobile Menu Overlay -->
@@ -27,6 +73,19 @@
             <li><a href="index.html">Tournament</a></li>
             <li><a href="house-selection.html">House Selection</a></li>
             <li><a href="wall-of-honor.html">Wall of Honor</a></li>
+            <li class="dropdown">
+                <a href="houses.html" class="dropdown-toggle">Noble Houses</a>
+                <ul class="dropdown-menu">
+                    <li><a href="houses/house-weasel.html">House Weasel</a></li>
+                    <li><a href="houses/house-rat.html">House Rat</a></li>
+                    <li><a href="houses/house-beetle.html">House Beetle</a></li>
+                    <li><a href="houses/house-slug.html">House Slug</a></li>
+                    <li><a href="houses/house-bat.html">House Bat</a></li>
+                    <li><a href="houses/house-toad.html">House Toad</a></li>
+                    <li><a href="houses/house-newt.html">House Newt</a></li>
+                    <li><a href="houses/house-worm.html">House Worm</a></li>
+                </ul>
+            </li>
             <li class="theme-toggle-container">
                 <button id="themeToggle" aria-label="Toggle dark/light mode">
                     <span class="theme-icon dark-icon">☀️</span>
@@ -54,6 +113,29 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('navHouseSelection').classList.add('active');
     } else if (currentPage.includes('wall-of-honor.html')) {
         document.getElementById('navWallOfHonor').classList.add('active');
+    }
+    
+    // Dropdown menu functionality
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        // For mobile: handle click on dropdown toggle
+        dropdownToggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                if (window.innerWidth <= 768) {
+                    dropdownMenu.style.display = 'none';
+                }
+            }
+        });
     }
 });
 </script>
